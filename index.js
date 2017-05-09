@@ -14,6 +14,7 @@ const SvgStorePlugin = require('./lib/SvgStorePlugin');
 const DEFAULT_QUERY_VALUES = {
     name: 'img/sprite.svg',
     iconName: 'icon-[name]-[hash:5]',
+    spritePath: '',
     svgoOptions: {
         plugins: [
             { collapseGroups: true },
@@ -66,11 +67,13 @@ function loader(content) {
             // Export the icon as a metadata object that contains urls to be used on an <img/> in HTML or url() in CSS
             callback(
                 null,
-                `var publicPath = __webpack_public_path__;
+                `
+                var iconDimensions = ${icon.getDocument().getDimensions()};
                 module.exports = {
-                    symbol: publicPath + '${icon.getUrlToSymbol()}',
-                    view: publicPath + '${icon.getUrlToView()}',
-                    viewBox: '${icon.getDocument().getViewBox()}',
+                    symbol: '${query.spritePath}${icon.getUrlToSymbol()}',
+                    view: '${query.spritePath}${icon.getUrlToView()}',
+                    width: '${iconDimensions.width}',
+                    height: '${iconDimensions.height}',
                     toString: function () {
                         return JSON.stringify(this.view);
                     }
