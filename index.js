@@ -57,31 +57,24 @@ function loader(content) {
       ],
     })
     .then((content) => {
-
       // Create the icon name with the hash of the optimized content
       const iconName = loaderUtils.interpolateName(this, query.iconName, { content });
-
       // Register the sprite and icon
       const icon = SvgStorePlugin.getSprite(query.name).addIcon(resourcePath, iconName, content.toString());
-
-      let iconMetaData = '';
+      const iconMetaData = {};
 
       if (iconName.indexOf(`-${query.noopIconName}-`) > -1) {
-        iconMetaData = `
-          module.exports = {
-            spriteFileName: '${icon.getSpriteFileName()}'
-          };`;
+        iconMetaData.spriteFileName = query.name;
       } else {
-        iconMetaData = `
-          module.exports = {
-              id: '${icon.getSymbolID()}',
-              width: '${icon.getDocument().getDimensions().width}',
-              height: '${icon.getDocument().getDimensions().height}'
-          };`;
+        iconMetaData.id = icon.getSymbolID();
+        iconMetaData.width = icon.getDocument().getDimensions().width;
+        iconMetaData.height = icon.getDocument().getDimensions().height;
       }
 
       // Export the icon as a metadata object that contains urls to be used on an <img/> in HTML or url() in CSS
-      callback(null, iconMetaData);
+      callback(null, `
+        module.exports = ${JSON.stringify(iconMetaData)}
+      `);
     })
     .catch((err) => {
       callback(err);
