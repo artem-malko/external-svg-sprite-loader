@@ -63,7 +63,7 @@ function loader(content) {
       const icon = SvgStorePlugin.getSprite(query.name).addIcon(resourcePath, iconName, content.toString());
       const iconMetaData = {};
 
-      if (iconName.indexOf(`-${query.noopIconName}-`) > -1) {
+      if (iconName.indexOf(`-${query.noopIconName}`) > -1) {
         iconMetaData.spriteFileName = query.name;
       } else {
         iconMetaData.id = icon.getSymbolID();
