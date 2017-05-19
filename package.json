@@ -9,6 +9,10 @@
       "name": "Bruno Sampaio",
       "email": "bruno.sampaio@karify.com",
       "url": "http://bensampaio.github.io/"
+    }, {
+      "name": "Malko Artem",
+      "email": "artem.malko@gmail.com",
+      "url": "https://gihub.com/artem-malko"
     }
   ],
   "dependencies": {
@@ -40,10 +44,10 @@
   "name": "external-svg-sprite-loader",
   "repository": {
     "type": "git",
-    "url": "http://github.com/Karify/external-svg-sprite-loader.git"
+    "url": "http://github.com/artem-malko/external-svg-sprite-loader.git"
   },
   "scripts": {
     "lint": "eslint index.js lib examples --ext=js,jsx"
   },
-  "version": "2.2.1"
+  "version": "3.0.0"
 }
